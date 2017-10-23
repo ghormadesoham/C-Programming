@@ -1,9 +1,55 @@
-//Let Uc C++
+//Let Us C++
 //include input output stream
 //cout and cin are defined in std namespace
 #include <iostream>
 #include <string>
 using namespace std;
+
+//function prototype definitions
+//Pass by reference
+void SwapByReference(int&,int&);
+void SwapByValue(int,int);
+void SwapByAddress(int*,int*);
+void Swap();
+void GlobalVariableExample();
+void ReferenceExample();
+
+//forward declarations
+
+
+
+struct employee
+{
+	char name[20];
+	int age;
+	float salary;
+};
+
+void PrintEmployeeData(employee);
+//main function 
+void main()
+{
+	//forward declare functions
+	void modify_c(employee*);
+	void modify_cpp(employee&);
+	//AverageMarksComputation();
+	/*single line comment*/
+	//VoidPointerExample();
+	//TypeCastingExample();
+	//GlobalVariableExample();
+	//ReferenceExample();
+	//Swap();
+
+	employee e1 = {"Amit",40,1000};
+	employee e2 = {"Mukesh",50,7000 };
+	modify_c(&e1);
+	modify_cpp(e2);
+	PrintEmployeeData(e1);
+	PrintEmployeeData(e2);
+	string str1;
+	cin >> str1;//for viewing input 
+
+}
 
 //anonymous union
 //must be static 
@@ -20,6 +66,23 @@ enum
 	cold,
 	windy,
 };
+
+//define a union in C++
+//a union can hold functions as well
+union data
+{
+	char ch[2];
+	int i;
+};
+
+//define an enum in C++
+enum status
+{
+	married,
+	unmarried,
+	divorced
+};
+
 
 void TypeCastingExample()
 {
@@ -56,6 +119,7 @@ void VoidPointerExample()
 	pointerToChar = (char*)voidPointer;//explicit C -style cast
 
 }
+
 void stringExample()
 {
 	char str1[] = "Hello";//5 characters
@@ -86,7 +150,7 @@ void ReferenceExample()
 
 	int i = 10;
 	int &j = i;//create a reference
-	//a reference is a handle to the integer i 
+			   //a reference is a handle to the integer i 
 	cout << endl << "i  :" << i << endl << "j : " << j << endl;
 	j = 20;//change j
 	cout << "After j is updated:" << endl;
@@ -111,45 +175,86 @@ void ReferenceExample()
 
 }
 
-//main function 
-void main()
+void Swap()
 {
-	//AverageMarksComputation();
-	/*single line comment*/
-	//VoidPointerExample();
-	//TypeCastingExample();
-	//GlobalVariableExample();
-	ReferenceExample();
-	string str1;
-	cin >> str1;//for viewing input 
+	int i = 10, j = 20;
+	cout << "i : " << i << " " << "j : " << j << endl;
+	SwapByValue(i, j);
+	cout << "i : " << i << " " << "j : " << j << endl;
+	SwapByReference(i, j);
+	cout << "i : " << i << " " << "j : " << j << endl;
+	SwapByAddress(&a, &j);
+	cout << "i : " << i << " " << "j : " << j << endl;
+}
+//swap by reference
+//uses references --easier to read than Pass by Address but logic is the same
+void SwapByReference(int& a, int& b)
+{
+	int temp;
+	//store "a" to a temp variable before overwriting
+	temp = a;
+	//copy over value of "b" to "a"
+	a = b;
+	//assign the value of "a" from temp to "b"
+	b = temp;
+	cout << "Swap By Reference" << endl;
+	cout << "a : " <<a<<" "<< "b : " << b << endl;
+}
+
+//swap by value
+void SwapByValue(int a, int b)
+{
+	int temp;
+	//store "a" to a temp variable before overwriting
+	temp = a;
+	//copy over value of "b" to "a"
+	a = b;
+	//assign the value of "a" from temp to "b"
+	b = temp;
+	cout << "Swap By Value" << endl;
+	cout << "a : " << a << " " << "b : " << b << endl;
+}
+
+//& Address of operator- apply to a variable to get its address
+//* deferencing operator -apply to a pointer to get its value
+void SwapByAddress(int* a , int* b)
+{
+	int temp;
+	//store "a" to a temp variable before overwriting
+	temp = *a;
+	//copy over value of "b" to "a"
+	*a = *b;
+	//assign the value of "a" from temp to "b"
+	*b = temp;
+	cout << "Swap By Address" << endl;
+	cout << "a : " << *a << " " << "b : " << *b << endl;
 
 }
-//define a structure in C++
-//structures can define data and methods in C++
 
-struct employee
+//modify values C style using pointers
+void modify_c(employee * emp)
 {
-	char name[20];
-	int age;
-	int GetAge()
-	{
-		return age;
-	};
-};
+	cout << "modify values C style using pointers" << endl;
+	emp->age = 21;
+	strcpy(emp->name,"Santhosh");
+	emp->salary = 3000;
 
-//define a union in C++
-//a union can hold functions as well
-union data
+}
+
+//modify values C++ style using references
+void modify_cpp(employee & emp)
 {
-	char ch[2];
-	int i;
-};
+	cout << "modify values C++ style using references" << endl;
+	emp.age = 31;
+	strcpy(emp.name, "Soham");
+	emp.salary = 4000;
 
-//define an enum in C++
-enum status
+}
+
+void PrintEmployeeData(employee emp)
 {
-	married,
-	unmarried,
-	divorced
-};
-
+	cout << "Employee  Data" << endl;
+	cout << "Name :" << emp.name << endl;
+	cout << "Age :" << emp.age << endl;
+	cout << "Salary :" << emp.salary << endl;
+}
