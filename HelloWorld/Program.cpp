@@ -7,13 +7,17 @@ using namespace std;
 
 //function prototype definitions
 //Pass by reference
-void SwapByReference(int&,int&);
-void SwapByValue(int,int);
-void SwapByAddress(int*,int*);
+void SwapByReference(int&, int&);
+void SwapByValue(int, int);
+void SwapByAddress(int*, int*);
 void Swap();
 void GlobalVariableExample();
 void ReferenceExample();
-
+void ReturnByReference();
+void EmployeeReferenceExample();
+void ConstExample();
+void xstrcpy(char*,char*);
+void ConstPointersExample();
 //forward declarations
 
 
@@ -26,6 +30,8 @@ struct employee
 };
 
 void PrintEmployeeData(employee);
+employee& GetEmployee3();
+
 //main function 
 void main()
 {
@@ -39,13 +45,8 @@ void main()
 	//GlobalVariableExample();
 	//ReferenceExample();
 	//Swap();
-
-	employee e1 = {"Amit",40,1000};
-	employee e2 = {"Mukesh",50,7000 };
-	modify_c(&e1);
-	modify_cpp(e2);
-	PrintEmployeeData(e1);
-	PrintEmployeeData(e2);
+	//ReturnByReference();
+	ConstPointersExample();
 	string str1;
 	cin >> str1;//for viewing input 
 
@@ -198,7 +199,7 @@ void SwapByReference(int& a, int& b)
 	//assign the value of "a" from temp to "b"
 	b = temp;
 	cout << "Swap By Reference" << endl;
-	cout << "a : " <<a<<" "<< "b : " << b << endl;
+	cout << "a : " << a << " " << "b : " << b << endl;
 }
 
 //swap by value
@@ -217,7 +218,7 @@ void SwapByValue(int a, int b)
 
 //& Address of operator- apply to a variable to get its address
 //* deferencing operator -apply to a pointer to get its value
-void SwapByAddress(int* a , int* b)
+void SwapByAddress(int* a, int* b)
 {
 	int temp;
 	//store "a" to a temp variable before overwriting
@@ -236,7 +237,7 @@ void modify_c(employee * emp)
 {
 	cout << "modify values C style using pointers" << endl;
 	emp->age = 21;
-	strcpy(emp->name,"Santhosh");
+	strcpy(emp->name, "Santhosh");
 	emp->salary = 3000;
 
 }
@@ -257,4 +258,66 @@ void PrintEmployeeData(employee emp)
 	cout << "Name :" << emp.name << endl;
 	cout << "Age :" << emp.age << endl;
 	cout << "Salary :" << emp.salary << endl;
+}
+
+//global user-defined variable
+employee e3 = { "Sahil",32,90000 };
+employee e4 = { "Varun",42,5000 };
+
+//return e3 by reference(&)
+employee& GetEmployee3()
+{
+	PrintEmployeeData(e3);
+	return e3;
+}
+
+void ReturnByReference()
+{
+
+	GetEmployee3() = e4;
+	PrintEmployeeData(e3);
+	PrintEmployeeData(e4);
+}
+
+void EmployeeReferenceExample()
+{
+	employee e1 = { "Amit",40,1000 };
+	employee e2 = { "Mukesh",50,7000 };
+	modify_c(&e1);
+	modify_cpp(e2);
+	PrintEmployeeData(e1);
+	PrintEmployeeData(e2);
+}
+
+
+//compute area of a circle using const
+void ConstExample()
+{
+	float r, a;
+	//uppercase 
+	const float PI = 3.14;
+	cout << "Enter radius: " << endl;
+	cin >> r;
+	a = PI*r*r;
+	cout << "Area of circle :" << a << endl;
+
+}
+
+void xstrcpy(char * destination, char *source)
+{
+	while (*destination != '\0')//"\0" refers to the last character of a string
+	{
+		*destination = *source;
+		destination++;
+		source++;
+	}
+	*destination = '\0';
+}
+
+void ConstPointersExample()
+{
+	char str1[] = "Nagpur";
+	char str2[10];
+	xstrcpy(str2,str1);
+	cout << "String 2 after str cpy :" <<str2<<endl;
 }
