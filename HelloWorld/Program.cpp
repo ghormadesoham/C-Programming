@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include"FunctionDeclarations.h"
-#include "Polymorphism.cpp"
+#include "Polymorphism.h"
 #include "Complex.cpp"
 using namespace std;
 
