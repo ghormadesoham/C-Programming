@@ -1,26 +1,13 @@
 //Let Us C++
 //include input output stream
 //cout and cin are defined in std namespace
+
 #include <iostream>
 #include <string>
+#include"FunctionDeclarations.h"
+#include "Polymorphism.cpp"
+#include "Complex.cpp"
 using namespace std;
-
-//function prototype definitions
-//Pass by reference
-void SwapByReference(int&, int&);
-void SwapByValue(int, int);
-void SwapByAddress(int*, int*);
-void Swap();
-void GlobalVariableExample();
-void ReferenceExample();
-void ReturnByReference();
-void EmployeeReferenceExample();
-void ConstExample();
-void xstrcpy(char*,char*);
-void ConstPointersExample();
-//forward declarations
-
-
 
 struct employee
 {
@@ -46,7 +33,8 @@ void main()
 	//ReferenceExample();
 	//Swap();
 	//ReturnByReference();
-	ConstPointersExample();
+	//ConstPointersExample();
+	PolymorphismExample();
 	string str1;
 	cin >> str1;//for viewing input 
 
@@ -303,7 +291,7 @@ void ConstExample()
 
 }
 
-void xstrcpy(char * destination, char *source)
+void xstrcpy(char * destination,  char *source)
 {
 	while (*destination != '\0')//"\0" refers to the last character of a string
 	{
@@ -319,5 +307,74 @@ void ConstPointersExample()
 	char str1[] = "Nagpur";
 	char str2[10];
 	xstrcpy(str2,str1);
-	cout << "String 2 after str cpy :" <<str2<<endl;
+	cout << "String 2 after str cpy :" << str2 << endl;
+}
+
+void ConstReferencesExample()
+{
+	//pointer is variable so is string
+	//non-const pointer and non-const string
+	char * str = "Hello";
+	*str = 'M';
+	str = "Bye";
+
+	//fixed string but pointer is not
+	const char * pointerToConstString = "Hello";// equivalent to 
+	//char const *pointerToConstString = "Hello";
+	//*pointerToConstString = 'M';//compiler error
+	pointerToConstString = "Bye";
+
+	//pointer is fixed but string is not
+	char* const constPointerToVariableString = "Hello";
+	*constPointerToVariableString = 'M';
+	//constPointerToVariableString = "Bye";
+
+}
+
+void PolymorphismExample()
+{
+
+	Vehicle * ptr1;
+	Vehicle v;
+
+	//base class pointer pointing to an instance of the base class
+	ptr1 = &v;
+	ptr1->Speed();
+	ptr1->Maintenance();
+	ptr1->Value();
+
+	Vehicle * ptr2, *ptr3, *ptr4;
+	FourWheeler maruti;
+	TwoWheeler bajaj;
+	AirBorne jumbo;
+
+	//run time /dynamic binding polymorphism
+	ptr2 = &maruti;
+	ptr3 = &bajaj;
+	ptr4 = &jumbo;
+
+	ptr2->Speed();
+	ptr2->Maintenance();
+
+	ptr3->Speed();
+	ptr3->Maintenance();
+
+	ptr4->Speed();
+	ptr4->Maintenance();
+
+	//calling a non-virtual function
+	ptr2->Value();
+	ptr3->Value();
+
+	//early/static/compile-time binding
+	Vehicle w;
+	w.Speed();
+
+	FourWheeler f;
+	f.Speed();
+
+	AirBorne a;
+	a.Maintenance();
+
+
 }
