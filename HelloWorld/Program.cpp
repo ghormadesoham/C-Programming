@@ -7,6 +7,7 @@
 #include"FunctionDeclarations.h"
 #include "Polymorphism.h"
 #include "Complex.cpp"
+#include"LinkedStack.h"
 using namespace std;
 
 struct employee
@@ -25,6 +26,7 @@ void main()
 	//forward declare functions
 	void modify_c(employee*);
 	void modify_cpp(employee&);
+	void LinkedListExample();
 	//AverageMarksComputation();
 	/*single line comment*/
 	//VoidPointerExample();
@@ -34,7 +36,8 @@ void main()
 	//Swap();
 	//ReturnByReference();
 	//ConstPointersExample();
-	PolymorphismExample();
+	//PolymorphismExample();
+	LinkedListExample();
 	string str1;
 	cin >> str1;//for viewing input 
 
@@ -72,7 +75,25 @@ enum status
 	divorced
 };
 
+void LinkedListExample()
+{
+	LinkedStack<string> strList;
+	strList.push("Hi");
+	cout << strList.ToString() << endl;
 
+	strList.push("How");
+	cout << strList.ToString() << endl;
+
+	strList.push("are");
+	cout << strList.ToString() << endl;
+
+	strList.push("you ?");
+		cout << strList.ToString() << endl;
+
+	strList.pop();
+		cout << strList.ToString() << endl;
+
+}
 void TypeCastingExample()
 {
 	int y = 1001, j = 365, n;
